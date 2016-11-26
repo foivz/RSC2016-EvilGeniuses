@@ -1,6 +1,7 @@
 package com.example.laurynas.quisar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -81,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
         makeToast("Loading " + url);
         myWebView.loadUrl(url);
         myWebView.setVisibility(View.GONE);
+        Button button = (Button)findViewById(R.id.button);
+        button.setVisibility(View.GONE);
+        RelativeLayout rLayout = (RelativeLayout) findViewById (R.id.rLayout);
+        rLayout.setBackgroundResource(R.drawable.splashscreen);
     }
     public void makeToast(String str){
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
@@ -132,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
             exUrls[level] = url;
             loadOnWebView(url);
             return true;
+        }
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            findViewById(R.id.rLayout).setBackgroundColor(Color.parseColor("#1c2d3f"));
+            findViewById(R.id.webview).setVisibility(View.VISIBLE);
+            findViewById(R.id.button).setVisibility(View.VISIBLE);
         }
     }
 
