@@ -1,4 +1,12 @@
 var io = require('socket.io')();
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'data'
+});
+connection.connect();
 console.log("Server started")
 
 var users = [];
@@ -107,15 +115,36 @@ io.on('connection', function(client)
     	displayNewQuestion(client,data);
 	});
 
+	client.on('createGame', function (data) {
+    	createGame(client,data);
+	});
 
 
 	client.on('register', function (data) {
 		if(!isUserRegistered(client))
 		{
 			console.log("New user " + simpleStringify(client));
-			users.push({"client":client,"points":0,"answeredQuestions":[]});
-			client.emit('registrationResponse', {status:"Success"});
-			sendGameList(client);
+			connection.query('SELECT points,game FROM users WHERE id='+ data, function(err, rows, fields)   
+			{  
+			  if (err) throw err;  
+			  console.log(rows[0])
+			  if(rows[0] == null)
+			  {
+
+			  		client.emit('registrationResponse', {status:"Doesnt exist"});
+			  } 
+			  else
+			  {
+			  	var dataToPush = {"id":data,"client":client,"points":rows[0].points,"answeredQuestions":[]}
+			  	users.push(dataToPush);
+			  	client.emit('registrationResponse', {status:"Success"});
+					sendGameList(client);
+			  	if(rows[0].game != null)
+			  		addUserToGame(rows[0].game,getUser(client),false);
+			  		
+					
+			  }
+			}); 			
 		} 	
 		else
 		{
@@ -126,6 +155,52 @@ io.on('connection', function(client)
 });
 
 io.listen(3000);
+
+function createGame(client,data)
+{
+	var user = getUser(client);
+	if(user == null || user["game"] != null )
+		return;
+
+	var game = getGameViaName(data.name);
+	if(game != null)
+	{
+		console.log("Game already exists")
+		return;
+	}
+
+	var newGame = {
+		"id":makeid(),
+		"name":data.name,
+		"moderators":[],
+		"users": [],
+		"status":"setup",
+		"questions":
+		[
+		{"id":0,"type":data.type,"question":data.question,"answer":data.answer,"points":data.points}
+		]
+	};
+
+	user.game = newGame.id;
+	newGame.moderators.push(user);
+	games.push(newGame);
+
+	for(var i = 0; i < users.length; i++)
+		{
+			sendGameList(users[i]["client"]);
+		}
+}
+
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
 
 function endGame(client)
 {
@@ -141,7 +216,10 @@ function endGame(client)
 	{
 		game.status = "ended";
 		var Winner = AnalizeWinner(game);
-		sendMessageToAllGame(game, "gameResult", "Winner is " + Winner.id);
+		if(Winner == null)
+			sendMessageToAllGame(game, "gameResult", "There is no winner");
+		else
+			sendMessageToAllGame(game, "gameResult", "Winner is " + Winner.id);
 		for(var i = 0; i < game.users.length; i++) 
 		{
 			game.users.game = null;
@@ -179,9 +257,11 @@ function sendMessageToAllGame(game, type, message)
 function AnalizeWinner(game)
 {
 	var bestUser = game.users[0];
+	console.log(bestUser)
 	for(var i = 0; i < game.users.length; i++)
 	{
 		var User = game.users[i];
+		console.log(User.answeredQuestions.length + "  -  " + bestUser.answeredQuestions.length)
 		if(User.answeredQuestions.length > bestUser.answeredQuestions.length)
 			bestUser = User;
 	}
@@ -249,6 +329,7 @@ function startgame(client)
 		game.status = "running";
 		for(var i = 0; i < users.length; i++)
 		{
+			users[i]["client"].emit('startGameResponse');
 			sendGameList(users[i]["client"]);
 		}
 	}
@@ -302,6 +383,10 @@ console.log(data)
 			user.points += question.points;
 			user.client.emit('pointsUpdate',user.points);
 			user.answeredQuestions.push(question);
+			connection.query('UPDATE users SET points = '+user.points + ' WHERE id='+ user.id +'', function(err, rows, fields)   {});
+ 
+
+
 		}
 		else
 		{
@@ -373,6 +458,22 @@ function sendMessageToModerators(gameId, data) {
 
 }
 
+
+function getGameViaName(name)
+{
+
+	for(var i = 0; i < games.length; i++)
+	{
+		var Game = games[i];
+		if(Game["name"] == name)
+		{
+			return Game;
+		}
+
+	}
+	return null;
+}
+
 function getGame(id)
 {
 
@@ -390,7 +491,9 @@ function getGame(id)
 
 function addUserToGame(id, user, moderate)
 {
-
+		var query = 'UPDATE users SET game="'+ id + '" WHERE id='+ user.id +'';
+		console.log(query)
+		connection.query(query, function(err, rows, fields)   {});
 		var Game = getGame(id);
 		if(!moderate)
 		{
