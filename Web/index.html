@@ -1,0 +1,15 @@
+
+<head>
+	
+
+</head>
+<body>
+
+<script src="socket.js"></script>
+<script>
+  var socket = io.connect('http://161.53.120.82:3000');
+  
+socket.emit('my other event', { my: 'data' });
+
+</script>
+</body>
