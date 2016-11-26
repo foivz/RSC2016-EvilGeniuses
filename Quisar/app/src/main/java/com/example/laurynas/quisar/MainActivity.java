@@ -1,5 +1,6 @@
 package com.example.laurynas.quisar;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -8,11 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -26,25 +30,27 @@ public class MainActivity extends AppCompatActivity {
     WebView myWebView;
     String[] exUrls = new String[100];
     int level = 0;
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         exUrls[level] = "http://rsc.hr/";
-        if(isNetworkAvailable(this)) {
-            myWebView = (WebView) findViewById(R.id.webview);
-            WebSettings webSettings = myWebView.getSettings();
-            webSettings.setJavaScriptEnabled(true);
-            myWebView.getSettings().setSupportZoom(true);
-            myWebView.getSettings().setBuiltInZoomControls(true);
-            myWebView.setWebViewClient(new myWebViewClient());
-            loadOnWebView(exUrls[level]);
-        }else{
+        if(!isNetworkAvailable(this)) {
             System.out.println("No connection");
             Toast.makeText(this, "Connection", Toast.LENGTH_SHORT).show();
             finish();
             System.exit(0);
         }
+        myWebView = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        myWebView.getSettings().setSupportZoom(true);
+        myWebView.getSettings().setBuiltInZoomControls(true);
+        myWebView.setWebViewClient(new myWebViewClient());
+        myWebView.setWebChromeClient(new myWebChromeClient());
+        loadOnWebView(exUrls[level]);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -88,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
         button.setVisibility(View.GONE);
         RelativeLayout rLayout = (RelativeLayout) findViewById (R.id.rLayout);
         rLayout.setBackgroundResource(R.drawable.splashscreen);
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        findViewById(R.id.textView).setVisibility(View.VISIBLE);
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar.setProgress(0);
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText("Loaded " + String.valueOf(0)+"%");
     }
     public void makeToast(String str){
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
@@ -140,11 +152,24 @@ public class MainActivity extends AppCompatActivity {
             loadOnWebView(url);
             return true;
         }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             findViewById(R.id.rLayout).setBackgroundColor(Color.parseColor("#1c2d3f"));
             findViewById(R.id.webview).setVisibility(View.VISIBLE);
             findViewById(R.id.button).setVisibility(View.VISIBLE);
+            findViewById(R.id.progressBar).setVisibility(View.GONE);
+            findViewById(R.id.textView).setVisibility(View.GONE);
+        }
+
+    }
+    private class myWebChromeClient extends WebChromeClient{
+        public void onProgressChanged(WebView view, int progress)
+        {
+            ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
+            progressBar.setProgress(progress);
+            TextView textView = (TextView) findViewById(R.id.textView);
+            textView.setText("Loaded " + String.valueOf(progress)+"%");
         }
     }
 
