@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create a quiz</title>
+    <title>Create a question</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -69,34 +69,18 @@
 
     <!-- Page Content -->
     <div class="container">
-        <a class="btn btn-primary btn-xl" href="createQuiz.php" >Create new quiz</a>
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="container">
-                  <h2>Your quizzes</h2> 
-                  <p></p>            
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Venue</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Quiz 1</td>
-                        <td>A quizz about quizzes</td>
-                        <td>Baker st. 55, London</td>
-                        <td>john@example.com</td>
-                        <td><a href="questions.php?name=Quiz1" class="btn btn-info">QUESTIONS</a> <a href="#" class="btn btn-success">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                
+            <div class="col-lg-12">
+                <h1>Question creation page</h1>
+                <p class="lead"></p>
+                <p><form action='creating.php' method='POST' enctype='multipart/form-data'> <p>
+                Name of the event <p><input type='text' name='name'><p>
+                Description of the event <p><input type='text' name='description'><p>
+                Address of the venue <p><input type='text' name='venue'><p>
+                Contact email <p><input type='text' name='email'><p>
+                <input type='submit' value='Save' class='btn btn-success'>
+                <a href="yourQuizzes.php" class="btn btn-primary">Go back</a>
+                </form>
             </div>
         </div>
         <!-- /.row -->

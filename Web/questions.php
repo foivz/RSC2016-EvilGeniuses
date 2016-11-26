@@ -73,7 +73,7 @@
            
                 
                <h2>Questions</h2>
-               <p><a href="#" class="btn btn-primary">Create new question</a> 
+               <p><a href="#" class="btn btn-primary">Create new question</a> <a href="yourQuizzes.php" class="btn btn-success">Back to quiz list</a> 
                 <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
