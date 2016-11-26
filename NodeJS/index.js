@@ -75,7 +75,7 @@ function submitanswer(client, data) {
 	var game = getGame(user["game"]);
 	if(game != null && game["status"] == "running")
 
-	sendMessageToModerators(game, data);
+	sendMessageToModerators(game["id"], data);
 }
 
 function sendMessageToModerators(gameId, data) {
@@ -83,14 +83,14 @@ function sendMessageToModerators(gameId, data) {
 	var Game = getGame(gameId);
 	if(Game == null) return;
 	console.log("Game found. Searching for mods")
-
-
 	for(var i in Game["users"])
 	{
 			
 		var user = Game["users"][i];
+		console.log(user)
 		if(user["type"] == "moderator")
 		{
+
 			console.log("Found moderator, sending . " + user["client"]["id"]);
 			//io.clients[user["client"]["id"]].emit('moderatorOnSumbit',{data: data})
 			if (io.sockets.connected[user["client"]["id"]]) {
