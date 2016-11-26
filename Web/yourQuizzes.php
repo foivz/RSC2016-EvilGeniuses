@@ -73,9 +73,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="container">
-                  <h2>Your quizzes</h2>
+                  <h2>Your quizzes</h2> 
                   <p></p>            
-                  <table class="table table-striped table-bordered">
+                  <table class="table table-striped">
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -91,7 +91,7 @@
                         <td>A quizz about quizzes</td>
                         <td>Baker st. 55, London</td>
                         <td>john@example.com</td>
-                        <td><a href="#" class="btn btn-info">QUESTIONS</a> <a href="#" class="btn btn-success">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
+                        <td><a href="questions.php/?name=Quiz1" class="btn btn-info">QUESTIONS</a><a href="#" class="btn btn-success">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
                       </tr>
                     </tbody>
                   </table>
