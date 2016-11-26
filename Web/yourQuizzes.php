@@ -69,13 +69,14 @@
 
     <!-- Page Content -->
     <div class="container">
-        <a class="btn btn-primary btn-xl" href="createQuiz.php" >Create new quiz</a>
+        
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="container">
                   <h2>Your quizzes</h2> 
+                  <a class="btn btn-primary btn-xl" href="createQuiz.php" >Create new quiz</a>
                   <p></p>            
-                  <table class="table table-striped">
+                  <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -88,10 +89,10 @@
                     <tbody>
                       <tr>
                         <td>Quiz 1</td>
-                        <td>A quizz about quizzes</td>
+                        <td>A quiz about quizzes</td>
                         <td>Baker st. 55, London</td>
                         <td>john@example.com</td>
-                        <td><a href="questions.php?name=Quiz1" class="btn btn-info">QUESTIONS</a> <a href="#" class="btn btn-success">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
+                        <td><a href="questions.php?name=Quiz1" type="button" onclick="socket.emit('startgame')" class="btn btn-warning">START</a> <a href="questions.php?name=Quiz1" class="btn btn-info">QUESTIONS</a></td>
                       </tr>
                     </tbody>
                   </table>
