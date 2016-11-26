@@ -1,9 +1,33 @@
 
 <head>
-	<button type="button" onclick="socket.emit('register', {type:'moderator' });">Register as moderator</button>
-	<button type="button" onclick="socket.emit('register', {type:'normal' });">Register as normal</button>
-	<button type="button" onclick="socket.emit('submitanswer', document.getElementById('answer').value);">Submit answer</button>
+	
+	<button type="button" onclick="socket.emit('register');">Register as normal</button>
+	<br/>
+	<button type="button" onclick="socket.emit('joinGame', {'id':document.getElementById('gameid').value})">Join game</button>
+	<button type="button" onclick="socket.emit('moderateGame', {'id':document.getElementById('gameid').value})">Moderate game</button>
+	<input id="gameid" type="text" name="gameid" placeholder="Enter gameid">
+	<br/>	
+	<button type="button" onclick="socket.emit('startgame')">Start Game</button>
+	<br/>	
+	<button type="button" onclick="socket.emit('submitanswer', {'id':document.getElementById('answerID').value,'type':0,'answer':document.getElementById('answer').value})">Submit answer</button>
 	<input id="answer" type="text" name="answer" placeholder="Enter your answer">
+	<input id="answerID" type="text" name="answerID" placeholder="Enter answer id">
+	<br/>	
+	<button type="button" onclick="socket.emit('gameList')">Reload games</button>
+	<br/>	
+	<button type="button" onclick="socket.emit('newQuestion', {'questionId':document.getElementById('questionId').value})">Display New Questions</button>
+	<input id="questionId" type="text" name="questionId" placeholder="Enter your questionId">
+	<br/>	
+	<button type="button" onclick="socket.emit('endGame')">End Game</button>
+
+	<ul id="games">
+	  <li>Empty</li>
+	</ul>
+
+
+	<ul id="questions">
+	  <li>Questions</li>
+	</ul>
 </head>
 <body>
 
@@ -12,8 +36,33 @@
   var socket = io.connect('http://161.53.120.82:3000');
 
    socket.on('registrationResponse', function (data) {
-    console.log("Registration completed " + data["status"]);
+    alert("Registration " + data["status"]);
 
+  });
+
+   socket.on('joinGameResponse', function (data) {
+    alert("Join game " + data["status"]);
+
+  });
+
+
+socket.on('newQuestion', function (data) {
+   	console.log(data);
+   	var myNode = document.getElementById("questions");
+	while (myNode.firstChild) {
+	    myNode.removeChild(myNode.firstChild);
+	}
+    console.log("User " + data["user"] + " submitted answer " + data["answer"]);
+
+   		var node = document.createElement("LI");
+   		var textnode = document.createTextNode("ID:" + data["id"] + ",TYPE: " + data["type"]  + "   QUESTION:" + data["question"] + "   ANSWER:" + data["answer"]);
+   		node.appendChild(textnode);
+    	document.getElementById("questions").appendChild(node);
+  });
+
+
+socket.on('submitanswerResponse', function (data) {
+   	console.log(data);
   });
 
    socket.on('moderatorOnSumbit', function (data) {
@@ -21,6 +70,42 @@
     console.log("User " + data["user"] + " submitted answer " + data["answer"]);
 
   });
+
+socket.on('removeQuestion', function (data) {
+   	console.log("Should remove");
+  });
+
+   socket.on('moderatorOnSumbit', function (data) {
+   	console.log(data);
+    console.log("User " + data["user"] + " submitted answer " + data["answer"]);
+
+  });
+
+   socket.on('pointsUpdate', function (data) {
+   	console.log("Now i have " + data);
+  });
+
+   socket.on('gameResult', function (data) {
+   	console.log("Game result " + data);
+  });
+
+   	socket.on('gameListResponse', function(data){
+   	console.log(data.length);
+   	var myNode = document.getElementById("games");
+	while (myNode.firstChild) {
+	    myNode.removeChild(myNode.firstChild);
+	}
+   	for(var i = 0; i < data.length; i++)
+   	{
+   		var game = data[i];
+   		 console.log(game);
+   		var node = document.createElement("LI");
+   		var textnode = document.createTextNode("ID:" + game["id"]  + "   " + game["status"]);
+   		node.appendChild(textnode);
+    	document.getElementById("games").appendChild(node);
+   	}
+   });
+
 
 
 </script>
