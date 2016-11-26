@@ -73,9 +73,15 @@
             <div class="col-lg-12">
                 <h1>Question creation page</h1>
                 <p class="lead"></p>
-                <p><form action='creating.php' method='POST' enctype='multipart/form-data'> <p>
-                Name of the event <p><input type='text' name='name'><p>
-                Description of the event <p><input type='text' name='description'><p>
+                <p><form action='creatingQuestion.php' method='POST' enctype='multipart/form-data'> <p>
+                <p>  Type:
+                <p><input type="radio" name="type"  value="text"  onclick="alert('hello');"/> Text  
+                <p><input type="radio" name="type" id="music" value="image" /> Image
+                
+                <div id="text" style="display:none;">
+                <p>Title of the question <p><input type='text' name='name'><p>
+                </div>
+                 <p><input type='text' name='description'><p>
                 Address of the venue <p><input type='text' name='venue'><p>
                 Contact email <p><input type='text' name='email'><p>
                 <input type='submit' value='Save' class='btn btn-success'>
