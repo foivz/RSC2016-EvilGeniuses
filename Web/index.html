@@ -1,0 +1,27 @@
+
+<head>
+	<button type="button" onclick="socket.emit('register', {type:'moderator' });">Register as moderator</button>
+	<button type="button" onclick="socket.emit('register', {type:'normal' });">Register as normal</button>
+	<button type="button" onclick="socket.emit('submitanswer', document.getElementById('answer').value);">Submit answer</button>
+	<input id="answer" type="text" name="answer" placeholder="Enter your answer">
+</head>
+<body>
+
+<script src="socket.js"></script>
+<script>
+  var socket = io.connect('http://161.53.120.82:3000');
+
+   socket.on('registrationResponse', function (data) {
+    console.log("Registration completed " + data["status"]);
+
+  });
+
+   socket.on('moderatorOnSumbit', function (data) {
+   	console.log(data);
+    console.log("User " + data["user"] + " submitted answer " + data["answer"]);
+
+  });
+
+
+</script>
+</body>
