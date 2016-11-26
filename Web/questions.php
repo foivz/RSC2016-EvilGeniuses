@@ -95,11 +95,7 @@
                                         <b>Answer:</b> 1965 December 8th 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <b>Possible Answer 1:</b> 1965/12/8 
-                                    </td>
-                                </tr>
+                              
                                 <tr>
                                     <td>
                                         <b>Points:</b> 2 
@@ -135,11 +131,6 @@
                                 <tr>
                                     <td>
                                         <b>Answer:</b> Telegraph 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>Possible Answer 1:</b> The Telegraph 
                                     </td>
                                 </tr>
                                 <tr>
@@ -183,11 +174,6 @@
                                 <tr>
                                     <td>
                                         <b>Answer :</b> 9 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>Possible Answer 1:</b> 9th
                                     </td>
                                 </tr>
                                 <tr>

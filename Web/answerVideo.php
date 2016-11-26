@@ -53,11 +53,12 @@
                         </div>
                         <script>
                           var i = 100;
-
+                          
+                          
                           var counterBack = setInterval(function(){
                             i--;
                             if (i > 0){
-                            document.getElementById("timeUp").style.visibility = "hidden";
+                              document.getElementById("timeUp").style.visibility = "hidden";
                               $('.progress-bar').css('width', i+'%');
                             } else {
                               clearInterval(counterBack);
@@ -70,16 +71,19 @@
                       <div id="content">
                         <h1>What is your name?</h1>
                         <p>Text question for <b>5</b> points
-                  </div>
-                      <div class="form-group">
-                        <input type="text" name="answer" class="form-control" style="margin:auto; width:40%">
                         
-                        <p><div class="btn btn-info" style="border-radius: 4px; width: 40%;">Answer</div>
+                      <div class="form-group">
+                        <p><input id="answer" type="text" name="answer" placeholder="Enter your answer" class="form-control" style="margin:auto; width:40%">
+                        <p><input id="answerID" type="text" name="answerID" placeholder="Enter answer id" class="form-control" style="margin:auto; width:40%">
+                        <p><button type="button" onclick="socket.emit('submitanswer', {'id':document.getElementById('answerID').value,'type':0,'answer':document.getElementById('answer').value})" class="btn btn-info" style="border-radius: 4px; width: 40%;">Submit Answer</button>
                       </div>
-                      <div id="timeUp" style="">
+                      </div>
+                      <div id="timeUp" style="visibility:hidden">
                         <h1>Time's Up!</h1>
                       <div>  
-                 </div>           
+                 </div>   
+                 </div>
+                 </div>        
             </div>
         </div>
         <!-- /.row -->
@@ -92,6 +96,16 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+    <script src="socket.js"></script>
+    <script>
+      var socket = io.connect('http://161.53.120.82:3000');
+      
+    
+    socket.on('submitanswerResponse', function (data) {
+       	console.log(data);   
+      });
+    </script>
 
 </body>
 
