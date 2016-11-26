@@ -81,7 +81,9 @@
                       <div id="timeUp" style="visibility:hidden">
                         <h1>Time's Up!</h1>
                       <div>  
-                 </div>           
+                 </div>   
+                 </div>
+                 </div>        
             </div>
         </div>
         <!-- /.row -->

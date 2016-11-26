@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
- session_start();
-?>
+
 <head>
 
     <meta charset="utf-8">
@@ -11,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Host a quiz</title>
+    <title>Moderator page</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -69,35 +67,40 @@
 
     <!-- Page Content -->
     <div class="container">
-        
+
         <div class="row">
             <div class="col-lg-12 text-center">
-                <div class="container">
-                  <h2>Your quizzes</h2> 
-                  <a class="btn btn-primary btn-xl" href="createQuiz.php" >Create new quiz</a>
-                  <p></p>            
-                  <table class="table table-striped table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Venue</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Quiz 1</td>
-                        <td>A quiz about quizzes</td>
-                        <td>Baker st. 55, London</td>
-                        <td>john@example.com</td>
-                        <td><a href="questions.php?name=Quiz1" type="button" onclick="socket.emit('startgame')" class="btn btn-warning">START</a> <a href="questions.php?name=Quiz1" class="btn btn-info">QUESTIONS</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                
+                <h1>This is a moderator's page</h1>
+                <p class="lead">You are moderating Quiz 1</p>
+                <button type="button" class="btn btn-danger" onclick="socket.emit('endGame')">End Game</button>
+                <button type="button" class="btn btn-success" onclick="socket.emit('newQuestion', {'questionId':document.getElementById('questionId').value})">Display New Questions</button>
+	              <input id="questionId" type="text" name="questionId" placeholder="Enter your questionId">
+                        <h4>Timer  </h4>
+                        <p><div class="progress" style="margin:auto;float:none; width:40%;">
+                          <div class="progress-bar progress-bar-success " role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            <span class="sr-only"></span>
+                          </div>
+                        </div>
+                        <script>
+                          var i = 100;
+                          
+                          
+                          var counterBack = setInterval(function(){
+                            i--;
+                            if (i > 0){
+                              
+                              $('.progress-bar').css('width', i+'%');
+                            } else {
+                              clearInterval(counterBack);
+                             
+                            }
+                            
+                          }, 1000);
+                        </script>
+                       <br> <a type="button" class="btn btn-warning" onclick="">End Time Earlier</a> 
+                    
+                 </div>
+                 </div> 
             </div>
         </div>
         <!-- /.row -->

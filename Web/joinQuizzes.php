@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Host a quiz</title>
+    <title>Join a quiz</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -73,8 +73,8 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="container">
-                  <h2>Your quizzes</h2> 
-                  <a class="btn btn-primary btn-xl" href="createQuiz.php" >Create new quiz</a>
+                  <h2>Quizzes near you</h2> 
+                  
                   <p></p>            
                   <table class="table table-striped table-bordered">
                     <thead>
@@ -92,7 +92,7 @@
                         <td>A quiz about quizzes</td>
                         <td>Baker st. 55, London</td>
                         <td>john@example.com</td>
-                        <td><a href="questions.php?name=Quiz1" type="button" onclick="socket.emit('startgame')" class="btn btn-warning">START</a> <a href="questions.php?name=Quiz1" class="btn btn-info">QUESTIONS</a></td>
+                        <td><a href="#" type="button"  onclick="" class="btn btn-success">REGISTER</a><a href="waiting.php" type="button"  onclick="socket.emit('joinGame', {'id':document.getElementById('gameid').value})" class="btn btn-warning">JOIN</a></td>
                       </tr>
                     </tbody>
                   </table>
