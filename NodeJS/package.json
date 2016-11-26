@@ -1,0 +1,11 @@
+{
+  "name": "quizrealtime",
+  "version": "1.0.0",
+  "description": "Realtime quic",
+  "main": "app.js",
+  "scripts": {
+    "test": "a"
+  },
+  "author": "Paulius Ivaskevicius",
+  "license": "ISC"
+}
