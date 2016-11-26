@@ -2,7 +2,8 @@
 <head>
 	<button type="button" onclick="socket.emit('register', {type:'moderator' });">Register as moderator</button>
 	<button type="button" onclick="socket.emit('register', {type:'normal' });">Register as normal</button>
-	<button type="button" onclick="socket.emit('submitanswer', 'Viskas chill');">Submit answer</button>
+	<button type="button" onclick="socket.emit('submitanswer', document.getElementById('answer').value);">Submit answer</button>
+	<input id="answer" type="text" name="answer" placeholder="Enter your answer">
 </head>
 <body>
 
