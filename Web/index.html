@@ -1,7 +1,20 @@
 
 <head>
 	
-	<button type="button" onclick="socket.emit('register');">Register as normal</button>
+	<button type="button" onclick="socket.emit('register', '56456');">Register as normal</button>
+	<br/>
+	<button type="button" onclick="socket.emit('createGame', {
+		'name':document.getElementById('cGameName').value,
+		'type':document.getElementById('cQuestionType').value,
+		'question':document.getElementById('cQuestion').value,
+		'answer':document.getElementById('cAnswer').value,
+		'points':document.getElementById('cPoints').value})">Create game</button>
+	<input id="cGameName" type="text" name="cGameName" placeholder="Enter cGameName">
+	<input id="cQuestionType" type="text" name="cQuestionType" placeholder="Enter cQuestionType">
+	<input id="cQuestion" type="text" name="cQuestion" placeholder="Enter cQuestion">
+	<input id="cAnswer" type="text" name="cAnswer" placeholder="Enter cAnswer">
+	<input id="cPoints" type="text" name="cPoints" placeholder="Enter cQuestion">
+
 	<br/>
 	<button type="button" onclick="socket.emit('joinGame', {'id':document.getElementById('gameid').value})">Join game</button>
 	<button type="button" onclick="socket.emit('moderateGame', {'id':document.getElementById('gameid').value})">Moderate game</button>
