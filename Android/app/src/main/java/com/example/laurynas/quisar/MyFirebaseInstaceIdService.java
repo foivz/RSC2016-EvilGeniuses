@@ -13,6 +13,7 @@ public class MyFirebaseInstaceIdService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         String recent_token = FirebaseInstanceId.getInstance().getToken();
+        System.out.print(recent_token);
         Log.d(REG_TOKEN, recent_token);
     }
 }
