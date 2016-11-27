@@ -73,20 +73,24 @@
             <div class="col-lg-12">
                 <h1>Question creation page</h1>
                 <p class="lead"></p>
-                <p><form action='creatingQuestion.php' method='POST' enctype='multipart/form-data'> <p>
+                <p><!--form action='creatingQuestion.php' method='POST' enctype='multipart/form-data'> <p-->
                 <p>  Type:
-                <p><input type="radio" name="type"  value="text"  onclick="alert('hello');"/> Text  
-                <p><input type="radio" name="type" id="music" value="image" /> Image
+                <p><input type="radio" name="type" id="cQuestionType" value="0" /> Text  
+                <p><input type="radio" name="type" id="cQuestionType" value="1" /> Image
                 
-                <div id="text" style="display:none;">
-                <p>Title of the question <p><input type='text' name='name'><p>
-                </div>
-                 <p><input type='text' name='description'><p>
-                Address of the venue <p><input type='text' name='venue'><p>
-                Contact email <p><input type='text' name='email'><p>
-                <input type='submit' value='Save' class='btn btn-success'>
+              
+                <p>Name of the Quiz <p><input type='text' id="cGameName" name='name'><p><p>
+                <p>Title of the question <p><input type='text' id="cQuestion" name='name'><p><p>
+                Answer <p><input type='text' id="cAnswer" name='answer'><p>
+                Point <p><input type='int' id="cPoints" name='points'><p>
+                <input type='submit' value='Save' class='btn btn-success' onclick="socket.emit('createGame', {
+		'name':document.getElementById('cGameName').value,
+		'type':document.getElementById('cQuestionType').value,
+		'question':document.getElementById('cQuestion').value,
+		'answer':document.getElementById('cAnswer').value,
+		'points':document.getElementById('cPoints').value})">
                 <a href="yourQuizzes.php" class="btn btn-primary">Go back</a>
-                </form>
+                
             </div>
         </div>
         <!-- /.row -->
@@ -99,6 +103,26 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="socket.js"></script>
+<script src="socket.js"></script>
+<script>
+  var socket = io.connect('http://161.53.120.82:3000');
+     socket.emit('register', '56456');
+   socket.on('registrationResponse', function (data) {
+    alert("Registration " + data["status"]);
+
+  });
+
+socket.on('createGameResponse', function (data) {
+   	console.log("Success");
+   	window.location.href = "questions.php";
+
+   		
+  });
+
+
+
+</script>
 
 </body>
 

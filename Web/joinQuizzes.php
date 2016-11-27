@@ -115,7 +115,7 @@
    socket.on('joinGameResponse', function (data) {
     alert("Join game " + data["status"]);
     if(data["status"] == "Success")
-      window.location.href = "file:///C:/Users/Kompiuteris/Documents/RSC2016-EvilGeniuses/Web/waiting.php";
+      window.location.href = "waiting.php";
   });
 
 

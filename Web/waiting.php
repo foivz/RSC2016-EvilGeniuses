@@ -50,7 +50,7 @@
                  <p><div style="height: 350px; background-color:#FFC300; border-radius: 4px; margin:auto;">
                       <h1 id="bigtext" style="padding-top:20px;">Waiting for the quiz to start</h1>     
 
-                        <div class="table-responsive">          
+                        <div id="dataTable" class="table-responsive">          
                   <table  class="table">
                     <thead>
                       <tr>
@@ -67,7 +67,7 @@
                   </div>
 
 
-                    <button type="button" onclick="socket.emit('leaveGame')">Leave Game</button>   
+                    <a type="button" class="btn btn-danger" onclick="socket.emit('leaveGame')" href="joinQuizzes.php">Leave Game</a>   
             </div>
         </div>
         <!-- /.row -->
@@ -107,7 +107,7 @@
       });
 
 socket.on('leaveGameResponse', function () {
-        window.location.href = "file:///C:/Users/Kompiuteris/Documents/RSC2016-EvilGeniuses/Web/joinQuizzes.php";
+        window.location.href = "joinQuizzes.php";
       });
 
 socket.on('gameResult', function (data) {
@@ -118,6 +118,7 @@ socket.on('gameResult', function (data) {
 socket.on('startGameResponse', function(){
     var myNode = document.getElementById("bigtext");
     myNode.innerHTML = "Started";
+    
 });
 
 socket.on('newQuestion', function (data) {
@@ -129,7 +130,7 @@ socket.on('newQuestion', function (data) {
 
     var id = "<td>"+data.id+"</td>"
       var question = "<td>"+data.question+"</td>"
-      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('submitanswer',{'id':'"+data.id+"','answer':document.getElementById('input"+data.id+"').value})\" class=\"btn btn-warning\">JOIN</button></td>"
+      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('submitanswer',{'id':'"+data.id+"','answer':document.getElementById('input"+data.id+"').value})\" class=\"btn btn-success\">Answer</button></td>"
       var input = "<input id=\"input"+data.id+"\" type=\"text\" name=\"answer\">"
       var html = "<tr>"+id+question+buttons+input+"</tr>"
       div.innerHTML = div.innerHTML + html;
