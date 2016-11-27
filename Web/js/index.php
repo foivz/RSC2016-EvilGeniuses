@@ -48,7 +48,7 @@
 		<form class="form">
 			<input type="text" placeholder="Username">
 			<input type="password" placeholder="Password">
-			<button onclick="window.location.href='http://161.53.120.82/joinQuizzes.php'" type="submit" id="login-button">Login</button>
+			<a href="http://161.53.120.82/joinQuizzes.php" type="submit" id="login-button">Login</a>
 		</form>
 	</div>
 	
