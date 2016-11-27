@@ -14,18 +14,36 @@ var users = [];
 var games = [];
 
 
-games.push({
-	"id":"jlHSgasgn",
-	"name":"TestGame",
-	"moderators":[],
-	"users": [],
-	"status":"setup",
-	"questions":
-	[
-	{"id":0,"type":0,"question":"Is nodeJS cool","answer":"true","points":5},
-	{"id":1,"type":1,"question":"Whats the first NodeJS letter","answer":"N","points":25}
-	]
-})
+
+var newGame = {
+		"id":makeid(),
+		"name":"QuTest",
+		"moderators":[],
+		"users": [],
+		"status":"ended",
+		"description":"The best quiz about your fav. actor",
+		"venue":"Mexicana",
+		"contact":"antonio.banderas@gmail.com",
+		"questions":[]
+};
+newGame.questions.push({"id":0,"type":0,"question":"Is nodeJS cool","answer":"true","points":5});
+newGame.questions.push({"id":1,"type":1,"question":"Whats the first NodeJS letter","answer":"N","points":25});
+games.push(newGame);
+
+newGame = {
+		"id":makeid(),
+		"name":"Znapi Tasteri",
+		"moderators":[],
+		"users": [],
+		"status":"setup",
+		"description":"Memes will rule the world",
+		"venue":"Hogwars",
+		"contact":"Sneazy.banderas@gmail.com",
+		"questions":[]
+};
+newGame.questions.push({"id":0,"type":0,"question":"Does the chichken want to cross the road?","answer":"false","points":5});
+newGame.questions.push({"id":1,"type":1,"question":"Mamamia is a song made by","answer":"ABBA","points":25});
+games.push(newGame);
 
 /*
 GAME:
@@ -101,6 +119,20 @@ io.on('connection', function(client)
     	sendGameList(client);
 	});
 
+	client.on('requestAllQuestions', function () {
+    	console.log("Got game list request ");
+    	var game = games[0];
+    	client.emit('requestAllQuestionsResponse', game.questions);
+	});
+
+	client.on('addQuestion', function (data) {
+    	console.log("Got game list request ");
+    	var game = games[0];
+    	game.questions.push({"id":game.questions.length,"type":data.type,"question":data.question,"answer":data.answer,"points":data.points,"time":10})
+    	client.emit('addQuestionResponse');
+
+	});
+
 	client.on('endGame', function () {
     	console.log("Got game list request ");
     	endGame(client);
@@ -127,9 +159,17 @@ io.on('connection', function(client)
 
 
 	client.on('register', function (data) {
+
+		if(data == null)
+		{
+			client.emit('registrationResponse', {status:"No ID"});
+			return;
+		}
+			
 		if(!isUserRegistered(client))
 		{
-			console.log("New user " + simpleStringify(client));
+			console.log("Newuser " + simpleStringify(client));
+			console.log(data)
 			connection.query('SELECT points,game FROM users WHERE id='+ data, function(err, rows, fields)   
 			{  
 			  if (err) throw err;  
@@ -199,18 +239,21 @@ function createGame(client,data)
 		return;
 	}
 
+
+
+
 	var newGame = {
 		"id":makeid(),
 		"name":data.name,
 		"moderators":[],
 		"users": [],
 		"status":"setup",
-		"questions":
-		[
-		{"id":0,"type":data.type,"question":data.question,"answer":data.answer,"points":data.points}
-		]
+		"description":data.description,
+		"venue":data.venue,
+		"contact":data.contact
 	};
 
+	client.emit('createGameResponse');
 	user.game = newGame.id;
 	newGame.moderators.push(user);
 	games.push(newGame);
@@ -266,6 +309,7 @@ function endGame(client)
 		{
 			sendGameList(users[i]["client"]);
 		}
+		user.game = null;
 	}
 
 }
@@ -356,6 +400,7 @@ function startgame(client)
 
 	if(userFound)
 	{
+		client.emit('startGameResponse');
 		game.status = "running";
 		for(var i = 0; i < users.length; i++)
 		{
@@ -373,7 +418,7 @@ function sendGameList(client)
 	for(var i = 0; i < games.length; i++)
 	{
 		var thisgame = games[i];
-		dataToSend.push({'id':thisgame['id'],'name':thisgame['name'],'status':thisgame['status']})
+		dataToSend.push({'id':thisgame['id'],'name':thisgame['name'],'status':thisgame['status'],'contact':thisgame.contact,'description':thisgame.description,'venue':thisgame.venue})
 	}
 	console.log(dataToSend)
 	client.emit('gameListResponse', dataToSend);
