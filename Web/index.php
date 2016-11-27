@@ -40,7 +40,7 @@
   class="fb-like"
   data-share="true"
   data-width="450"
-  data-show-faces="true">  Test
+  data-show-faces="true">
 </div>
 
 			<!--button onclick="window.location.href='http://161.53.120.82/joinQuizzes.php'" type="submit" id="login-button">Login</button-->
