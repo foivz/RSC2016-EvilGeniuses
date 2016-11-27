@@ -51,10 +51,10 @@
                 <ul class="nav navbar-nav">
                     
                     <li>
-                        <a href="#">About</a>
+                        <a href="yourQuizzes.php">Your Quizzes</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="joinQuizzes.php">Participate</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
