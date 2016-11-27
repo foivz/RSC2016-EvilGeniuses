@@ -5,7 +5,8 @@ Major League Hacking project
 
 ## Getting Started
 
-To begin using this app:
+To begin using this app
+
 *Log in
 *participate in quizzes
 *create your quizzes

@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">Quisar</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -69,7 +69,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-8 text-center">
                 <h1>This is a moderator's page</h1>
                 <p class="lead">You are moderating Quiz 1</p>
                 <table  class="table table-striped table-bordered">

@@ -47,7 +47,7 @@
 
         <div class="row" style="margin:auto">
             <div class="col-lg-8 text-center" style="margin:auto; float:none;">
-                 <p><div style="height: 350px; background-color:#FFC300; border-radius: 4px; margin:auto;">
+                 <p><div style="height: 350px; background-color:#009a9a; border-radius: 4px; margin:auto;">
                       <h1 id="bigtext" style="padding-top:20px;">Waiting for the quiz to start</h1>     
 
                         <div id="dataTable" class="table-responsive">          
