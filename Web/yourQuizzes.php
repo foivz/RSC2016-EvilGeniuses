@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Quisar/a>
+                <a class="navbar-brand" href="#">Quisar</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -79,14 +79,16 @@
                   <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Venue</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="games">
                       <tr>
                         <td>Quiz 1</td>
                         <td>A quiz about quizzes</td>
@@ -113,75 +115,37 @@
     <script src="socket.js"></script>
 <script>
   var socket = io.connect('http://161.53.120.82:3000');
-
+    socket.emit('register', '56456');
    socket.on('registrationResponse', function (data) {
-    alert("Registration " + data["status"]);
-
+         console.log("connected");
   });
-
-   socket.on('joinGameResponse', function (data) {
-    alert("Join game " + data["status"]);
-
-  });
-
-
-socket.on('newQuestion', function (data) {
-   	console.log(data);
-   	var myNode = document.getElementById("questions");
-	while (myNode.firstChild) {
-	    myNode.removeChild(myNode.firstChild);
-	}
-    console.log("User " + data["user"] + " submitted answer " + data["answer"]);
-
-   		var node = document.createElement("LI");
-   		var textnode = document.createTextNode("ID:" + data["id"] + ",TYPE: " + data["type"]  + "   QUESTION:" + data["question"] + "   ANSWER:" + data["answer"]);
-   		node.appendChild(textnode);
-    	document.getElementById("questions").appendChild(node);
-  });
-
-
-socket.on('submitanswerResponse', function (data) {
-   	console.log(data);
-  });
-
-   socket.on('moderatorOnSumbit', function (data) {
-   	console.log(data);
-    console.log("User " + data["user"] + " submitted answer " + data["answer"]);
-
-  });
-
-socket.on('removeQuestion', function (data) {
-   	console.log("Should remove");
-  });
-
-   socket.on('moderatorOnSumbit', function (data) {
-   	console.log(data);
-    console.log("User " + data["user"] + " submitted answer " + data["answer"]);
-
-  });
-
-   socket.on('pointsUpdate', function (data) {
-   	console.log("Now i have " + data);
-  });
-
-   socket.on('gameResult', function (data) {
-   	console.log("Game result " + data);
-  });
+    socket.on('startGameResponse', function (data){
+        console.log("game started");
+        
+    });
 
    	socket.on('gameListResponse', function(data){
-   	console.log(data.length);
-   	var myNode = document.getElementById("games");
-	while (myNode.firstChild) {
-	    myNode.removeChild(myNode.firstChild);
-	}
+
+   	var div = document.getElementById('games');
+  while (div.firstChild) {
+      div.removeChild(div.firstChild);
+  }
    	for(var i = 0; i < data.length; i++)
    	{
    		var game = data[i];
    		 console.log(game);
-   		var node = document.createElement("LI");
-   		var textnode = document.createTextNode("ID:" + game["id"]  + "   " + game["status"]);
-   		node.appendChild(textnode);
-    	document.getElementById("games").appendChild(node);
+
+      var id = "<td>"+game.id+"</td>"
+      var name = "<td>"+game.name+"</td>"
+      var descr ="<td>"+game.description+"</td>"
+      var venue = "<td>"+game.venue+"</td>"
+      var contact = "<td>"+game.contact+"</td>"
+      var status = "<td>"+game.status+"</td>"
+      var button = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('startgame')\" class=\"btn btn-success\">Start Quiz</button>"
+      var butt = "<button type=\"button\" class=\"btn btn-info\" onclick=\"socket.emit('moderateGame','"+game.id+"')\">Moderate game</button></td>";
+      var html = "<tr>"+id+name+descr+venue+contact+status+button+butt+"</tr>"
+
+   		div.innerHTML = div.innerHTML + html;
    	}
    });
 

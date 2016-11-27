@@ -73,14 +73,17 @@
             <div class="col-lg-12">
                 <h1>Quiz creation page</h1>
                 <p class="lead"></p>
-                <p><form action='creating.php' method='POST' enctype='multipart/form-data'> <p>
-                Name of the event <p><input type='text' name='name'><p>
-                Description of the event <p><input type='text' name='description'><p>
-                Address of the venue <p><input type='text' name='venue'><p>
-                Contact email <p><input type='text' name='email'><p>
-                <input type='submit' value='Save' class='btn btn-success'>
+              
+                Name of the event <p><input type='text' id="cname" name='name'><p>
+                Description of the event <p><input type='text' id="cdescription" name='description'><p>
+                Address of the venue <p><input type='text' id="cvenue" name='venue'><p>
+                Contact email <p><input type='text' id="cemail" name='email'><p>
+                <input type='submit' value='Save' class='btn btn-success' onclick="socket.emit('createGame', {
+		'name':document.getElementById('cname').value,
+		'description':document.getElementById('cdescription').value,
+		'venue':document.getElementById('cvenue').value,
+		'contact':document.getElementById('cemail').value})">
                 <a href="yourQuizzes.php" class="btn btn-primary">Go back</a>
-                </form>
             </div>
         </div>
         <!-- /.row -->
@@ -93,6 +96,23 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+        <script src="socket.js"></script>
+<script>
+  var socket = io.connect('http://161.53.120.82:3000');
+  socket.emit('register', '56456');
+   socket.on('registrationResponse', function (data) {
+
+  });
+
+
+
+socket.on('createGameResponse', function (data) {
+   	console.log(data);
+    window.location.href = "yourQuizzes.php";
+  });
+
+
+</script>
 
 </body>
 
