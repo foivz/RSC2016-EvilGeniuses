@@ -15,7 +15,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/style1.css">
     <!-- Custom CSS -->
     <style>
     body {
@@ -69,7 +69,7 @@
 
     <!-- Page Content -->
     <div class="container">
-        
+        <div class="wrapper">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="container">
@@ -103,7 +103,6 @@
             </div>
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
 
