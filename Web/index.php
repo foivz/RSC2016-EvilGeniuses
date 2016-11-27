@@ -9,7 +9,6 @@
 </head>
 
 <body style="background-color:#61E9B1;">
-<back>
 
 <script>
   window.fbAsyncInit = function() {
@@ -28,7 +27,6 @@
                          }(document, 'script', 'facebook-jssdk'));
                      </script>
                      <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>               
-</script>
   <div class="wrapper">
 	<div class="container1">
 		<h1>Welcome</h1>
@@ -36,17 +34,16 @@
 		<form class="form">
 			<input type="text" placeholder="Username">
 			<input type="password" placeholder="Password">
-<<<<<<< HEAD
-			<button type="submit" id="login-button">Login</button>
-            <div
+			<button type="submit" id="login-button" onclick="window.location.href='http://161.53.120.82/joinQuizzes.php'">Login</button>
+
+<div
   class="fb-like"
   data-share="true"
   data-width="450"
-  data-show-faces="true">
+  data-show-faces="true">  Test
 </div>
-=======
-			<button onclick="window.location.href='http://161.53.120.82/joinQuizzes.php'" type="submit" id="login-button">Login</button>
->>>>>>> origin/master
+
+			<!--button onclick="window.location.href='http://161.53.120.82/joinQuizzes.php'" type="submit" id="login-button">Login</button-->
 		</form>
 	</div>
 	
