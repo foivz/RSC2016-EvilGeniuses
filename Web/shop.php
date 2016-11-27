@@ -14,6 +14,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
      <link href="css/custom.css" rel="stylesheet">
+     <link rel="stylesheet" href="css/style1.css">
+
     <!-- Custom CSS -->
     <style>
     body {
@@ -35,6 +37,7 @@
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -70,6 +73,7 @@
     </nav>
 
     <!-- Page Content -->
+     <div class="wrapper">
     <div class="container">
 
         <div class="row">
@@ -195,6 +199,9 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="js/index.js"></script>
 </body>
 
 </html>

@@ -15,7 +15,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style1.css">
 
     <!-- Custom CSS -->
     <style>
@@ -69,6 +69,7 @@
     </nav>
 
     <!-- Page Content -->
+    <div class="wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -97,7 +98,6 @@
 
     </div>
     <!-- /.container -->
-
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
 

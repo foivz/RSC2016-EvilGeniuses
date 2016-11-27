@@ -15,7 +15,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/style1.css">
     <!-- Custom CSS -->
     <style>
     body {
@@ -68,6 +68,7 @@
     </nav>
 
     <!-- Page Content -->
+    <div class="wrapper">
     <div class="container">
         
         <div class="row">
@@ -103,7 +104,6 @@
             </div>
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
 
@@ -200,7 +200,9 @@ socket.on('removeQuestion', function (data) {
 
 
 </script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+    <script src="js/index.js"></script>
 </body>
 
 </html>
