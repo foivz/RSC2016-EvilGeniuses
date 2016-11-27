@@ -170,7 +170,7 @@ io.on('connection', function(client)
 		{
 			console.log("Newuser " + simpleStringify(client));
 			console.log(data)
-			connection.query('SELECT points,game FROM users WHERE id='+ data, function(err, rows, fields)   
+			connection.query('SELECT points,game,moderator FROM users WHERE id='+ data, function(err, rows, fields)   
 			{  
 			  if (err) throw err;  
 			  console.log(rows[0])
@@ -182,11 +182,17 @@ io.on('connection', function(client)
 			  else
 			  {
 			  	var dataToPush = {"id":data,"client":client,"points":rows[0].points,"answeredQuestions":[]}
+			  	var mod = false;
+
+			  	if(rows[0].moderator == 1)
+			  		mod = true;
+
+
 			  	users.push(dataToPush);
 			  	client.emit('registrationResponse', {status:"Success"});
 					sendGameList(client);
 			  	if(rows[0].game != null)
-			  		addUserToGame(rows[0].game,getUser(client),false);
+			  		addUserToGame(rows[0].game,getUser(client),mod);
 			  		
 					
 			  }
@@ -257,7 +263,7 @@ function createGame(client,data)
 	user.game = newGame.id;
 	newGame.moderators.push(user);
 	games.push(newGame);
-
+		connection.query('UPDATE users SET game ="'+ newGame.id +'",moderator="1" WHERE id='+ user.id +'', function(err, rows, fields)   {});
 	for(var i = 0; i < users.length; i++)
 		{
 			sendGameList(users[i]["client"]);
@@ -280,13 +286,14 @@ function endGame(client)
 	var user = getUser(client);
 	if(user == null || user["game"] == null || user["game"].length == 0)
 		return;
-
+	console.log('user good')
 	var game = getGame(user["game"]);
 	if(game == null || game["status"] != "running")
 		return;
-
+	console.log('game good')
 	if(isModerator(user,game))
 	{
+		console.log('moderator good')
 		game.status = "ended";
 		var Winner = AnalizeWinner(game);
 		if(Winner == null)
@@ -310,6 +317,7 @@ function endGame(client)
 			sendGameList(users[i]["client"]);
 		}
 		user.game = null;
+		connection.query('UPDATE users SET game ="",moderator="0" WHERE id='+ user.id +'', function(err, rows, fields)   {});
 	}
 
 }
@@ -370,7 +378,8 @@ function isModerator(user, game)
 {
 	for(var i = 0; i < game["moderators"].length; i++)
 	{
-		if(user["client"] == game["moderators"][i]["client"])
+		console.log(user.id +  "   " + game["moderators"][i].id);
+		if(user.id == game["moderators"][i].id)
 			return true;
 	}
 	return false;
@@ -505,7 +514,7 @@ function joingame(client, data, moderate)
 		client.emit('joinGameResponse',{status:"Wrong game status : " + game["status"]})
 		return;
 	}
-
+	console.log(moderate + " 2")
 	addUserToGame(data, user, moderate);
 }
 
@@ -568,16 +577,17 @@ function getGame(id)
 function addUserToGame(id, user, moderate)
 {
 		
-		
+		console.log(moderate)
 		var Game = getGame(id);
 		if(Game == null)
 			return;
 
-		var query = 'UPDATE users SET game="'+ id + '" WHERE id='+ user.id +'';
-		console.log(query)
-		connection.query(query, function(err, rows, fields)   {});
-		if(!moderate)
+		
+		if(moderate == false)
 		{
+			var query = 'UPDATE users SET game="'+ id + '",moderator="0" WHERE id='+ user.id +'';
+			console.log(query)
+			connection.query(query, function(err, rows, fields)   {});
 			var userAlreadyExists = false;
 			for(var j = 0; j < Game["users"].length;j++)
 			{
@@ -593,12 +603,15 @@ function addUserToGame(id, user, moderate)
 			{
 				user["game"] = id;
 				Game["users"].push(user);
-				console.log("User registered to game " + id);
+				console.log("Normal User registered to game " + id);
 				user["client"].emit('joinGameResponse',{status:"Success"})
 			}
 		}
 		else
 		{
+			var query = 'UPDATE users SET game="'+ id + '",moderator="1" WHERE id='+ user.id +'';
+			console.log(query)
+			connection.query(query, function(err, rows, fields)   {});
 			var userAlreadyExists = false;
 			for(var j = 0; j < Game["moderators"].length;j++)
 			{
@@ -614,7 +627,7 @@ function addUserToGame(id, user, moderate)
 			{
 				user["game"] = id;
 				Game.moderators.push(user);
-				console.log("User registered to game " + id);
+				console.log("Mod  User registered to game " + id);
 				user["client"].emit('joinGameResponse',{status:"Success"})
 			}
 
