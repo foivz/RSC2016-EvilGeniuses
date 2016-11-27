@@ -73,23 +73,22 @@
             <div class="col-lg-12">
                 <h1>Question creation page</h1>
                 <p class="lead"></p>
-                <p><!--form action='creatingQuestion.php' method='POST' enctype='multipart/form-data'> <p-->
+                <p>
                 <p>  Type:
                 <p><input type="radio" name="type" id="cQuestionType" value="0" /> Text  
                 <p><input type="radio" name="type" id="cQuestionType" value="1" /> Image
                 
               
-                <p>Name of the Quiz <p><input type='text' id="cGameName" name='name'><p><p>
+            
                 <p>Title of the question <p><input type='text' id="cQuestion" name='name'><p><p>
                 Answer <p><input type='text' id="cAnswer" name='answer'><p>
                 Point <p><input type='int' id="cPoints" name='points'><p>
-                <input type='submit' value='Save' class='btn btn-success' onclick="socket.emit('createGame', {
-		'name':document.getElementById('cGameName').value,
+                <input type='submit' value='Save' class='btn btn-success' onclick="socket.emit('addQuestion', {
 		'type':document.getElementById('cQuestionType').value,
 		'question':document.getElementById('cQuestion').value,
 		'answer':document.getElementById('cAnswer').value,
 		'points':document.getElementById('cPoints').value})">
-                <a href="yourQuizzes.php" class="btn btn-primary">Go back</a>
+                <a href="questions.php" class="btn btn-primary">Go back</a>
                 
             </div>
         </div>
@@ -109,11 +108,10 @@
   var socket = io.connect('http://161.53.120.82:3000');
      socket.emit('register', '56456');
    socket.on('registrationResponse', function (data) {
-    alert("Registration " + data["status"]);
 
   });
 
-socket.on('createGameResponse', function (data) {
+socket.on('addQuestionResponse', function (data) {
    	console.log("Success");
    	window.location.href = "questions.php";
 

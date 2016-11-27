@@ -74,7 +74,21 @@
                 
                <h2>Questions</h2>
                <p><a href="createQuestion.php" class="btn btn-primary">Create new question</a> <a href="yourQuizzes.php" class="btn btn-success">Back to quiz list</a> 
-                <div class="panel-group" id="accordion">
+                <table  class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Points</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="games">
+                      
+                    </tbody>
+                  </table>
+                <!--div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -84,6 +98,7 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
+                        
                             <table class="table">
                                 <tr>
                                     <td>
@@ -192,7 +207,7 @@
                 </div>
              </div>   
             
-        </div>
+        </div-->
         <!-- /.row -->
 
     </div>
@@ -200,7 +215,42 @@
 
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
+    <script src="socket.js"></script>
+<script>
+  var socket = io.connect('http://161.53.120.82:3000');
+  
+  socket.emit('requestAllQuestions');
+  socket.emit('register', '56456');
+  
+  socket.on('requestAllQuestionsResponse', function(data) {
+          console.log(data);
+          var div = document.getElementById('games');
+  while (div.firstChild) {
+      div.removeChild(div.firstChild);
+  }
+   	for(var i = 0; i < data.length; i++)
+   	{
+   		var game = data[i];
+   		 console.log(game);
 
+      var id = "<td>"+game.id+"</td>"
+      var name = "<td>"+game.question+"</td>"
+      var answer ="<td>"+game.answer+"</td>"
+      var points = "<td>"+game.points+"</td>"
+      var buttons = "<td><button  type=\"button\" id=\"joinbutton\"  class=\"btn btn-danger\">Delete</button></td>"
+      var html = "<tr>"+id+name+answer+points+buttons+"</tr>"
+
+
+
+
+   		div.innerHTML = div.innerHTML + html;
+    	//document.getElementById("games").appendChild(node);
+   	}
+  });
+  
+   socket.on('registrationResponse', function (data) {
+  });
+  </script>                 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
