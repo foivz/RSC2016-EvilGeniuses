@@ -76,24 +76,17 @@
                   <h2>Quizzes near you</h2> 
                   
                   <p></p>            
-                  <table class="table table-striped table-bordered">
+                  <table  class="table table-striped table-bordered">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Venue</th>
-                        <th>Email</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>Quiz 1</td>
-                        <td>A quiz about quizzes</td>
-                        <td>Baker st. 55, London</td>
-                        <td>john@example.com</td>
-                        <td><a href="#" type="button"  onclick="" class="btn btn-success">REGISTER</a><a href="waiting.php" type="button"  onclick="socket.emit('joinGame', {'id':document.getElementById('gameid').value})" class="btn btn-warning">JOIN</a></td>
-                      </tr>
+                    <tbody id="games">
+                      
                     </tbody>
                   </table>
                 </div>
@@ -113,7 +106,7 @@
     <script src="socket.js"></script>
 <script>
   var socket = io.connect('http://161.53.120.82:3000');
-
+  socket.emit('register', '56456');
    socket.on('registrationResponse', function (data) {
     alert("Registration " + data["status"]);
 
@@ -121,7 +114,8 @@
 
    socket.on('joinGameResponse', function (data) {
     alert("Join game " + data["status"]);
-
+    if(data["status"] == "Success")
+      window.location.href = "file:///C:/Users/Kompiuteris/Documents/RSC2016-EvilGeniuses/Web/waiting.php";
   });
 
 
@@ -160,6 +154,7 @@ socket.on('removeQuestion', function (data) {
 
   });
 
+
    socket.on('pointsUpdate', function (data) {
    	console.log("Now i have " + data);
   });
@@ -170,18 +165,26 @@ socket.on('removeQuestion', function (data) {
 
    	socket.on('gameListResponse', function(data){
    	console.log(data.length);
-   	var myNode = document.getElementById("games");
-	while (myNode.firstChild) {
-	    myNode.removeChild(myNode.firstChild);
-	}
+    var div = document.getElementById('games');
+  while (div.firstChild) {
+      div.removeChild(div.firstChild);
+  }
    	for(var i = 0; i < data.length; i++)
    	{
    		var game = data[i];
    		 console.log(game);
-   		var node = document.createElement("LI");
-   		var textnode = document.createTextNode("ID:" + game["id"]  + "   " + game["status"]);
-   		node.appendChild(textnode);
-    	document.getElementById("games").appendChild(node);
+
+      var id = "<td>"+game.id+"</td>"
+      var name = "<td>"+game.name+"</td>"
+      var status = "<td>"+game.status+"</td>"
+      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('joinGame','"+game.id+"')\" class=\"btn btn-warning\">JOIN</button></td>"
+      var html = "<tr>"+id+name+status+buttons+"</tr>"
+
+
+
+
+   		div.innerHTML = div.innerHTML + html;
+    	//document.getElementById("games").appendChild(node);
    	}
    });
 

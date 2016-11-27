@@ -74,6 +74,7 @@ TYPES
 
 io.on('connection', function(client)
 { 
+	sendGameList(client);
 	client.on('disconnect', function () {
         removeUser(client);
         displayArray();
@@ -103,6 +104,11 @@ io.on('connection', function(client)
 	client.on('endGame', function () {
     	console.log("Got game list request ");
     	endGame(client);
+	});
+
+	client.on('leaveGame', function () {
+    	console.log("Got game list request ");
+    	leaveGame(client);
 	});
 
 	client.on('startgame', function (data) {
@@ -155,6 +161,30 @@ io.on('connection', function(client)
 });
 
 io.listen(3000);
+
+function leaveGame(client)
+{
+	var user = getUser(client);
+	if(user == null || user["game"] == null )
+		return;
+
+	var game = getGame(user["game"]);
+
+	for(var i = 0; i < game.users.length; i++)
+	{
+		if(game.users[i].client == client)
+		{
+			game.users.splice(i,1);
+			break;
+		}
+	}
+
+	user.game = null;
+	connection.query('UPDATE users SET game ="" WHERE id='+ user.id +'', function(err, rows, fields)   {});
+
+	client.emit('leaveGameResponse');
+
+}
 
 function createGame(client,data)
 {
@@ -416,7 +446,8 @@ function joingame(client, data, moderate)
 		return;
 	}
 
-	var game = getGame(data["id"]);
+	console.log("da " + data)
+	var game = getGame(data);
 
 	if(game == null)
 	{
@@ -430,7 +461,7 @@ function joingame(client, data, moderate)
 		return;
 	}
 
-	addUserToGame(data["id"], user, moderate);
+	addUserToGame(data, user, moderate);
 }
 
 function sendMessageToModerators(gameId, data) {
@@ -491,10 +522,15 @@ function getGame(id)
 
 function addUserToGame(id, user, moderate)
 {
+		
+		
+		var Game = getGame(id);
+		if(Game == null)
+			return;
+
 		var query = 'UPDATE users SET game="'+ id + '" WHERE id='+ user.id +'';
 		console.log(query)
 		connection.query(query, function(err, rows, fields)   {});
-		var Game = getGame(id);
 		if(!moderate)
 		{
 			var userAlreadyExists = false;

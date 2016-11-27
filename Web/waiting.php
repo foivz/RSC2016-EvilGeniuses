@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+ session_start();
+?>
 <head>
 
     <meta charset="utf-8">
@@ -22,10 +24,10 @@
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
     </style>
-     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+     <link href="css/bootstrap.min.css" rel="stylesheet">
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+      <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,7 +48,26 @@
         <div class="row" style="margin:auto">
             <div class="col-lg-8 text-center" style="margin:auto; float:none;">
                  <p><div style="height: 350px; background-color:#FFC300; border-radius: 4px; margin:auto;">
-                      <h1 style="padding-top:20px;">Waiting for the quiz to start</h1>           
+                      <h1 id="bigtext" style="padding-top:20px;">Waiting for the quiz to start</h1>     
+
+                        <div class="table-responsive">          
+                  <table  class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Question</th>
+                        <th>Actions</th>
+                        <th>Answer</th>
+                      </tr>
+                    </thead>
+                    <tbody id="questions">
+                     
+                    </tbody>
+                  </table>
+                  </div>
+
+
+                    <button type="button" onclick="socket.emit('leaveGame')">Leave Game</button>   
             </div>
         </div>
         <!-- /.row -->
@@ -60,14 +81,60 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     
-    <script src="socket.js"></script>
+   <script src="socket.js"></script>
     <script>
-      var socket = io.connect('http://161.53.120.82:3000');
+    /*
+      var div = document.getElementById("questions");
+    var data = {};
+    data.id = "a";
+    data.question = 'asfafg';
+
+
+
+
+        var id = "<td>"+data.id+"</td>"
+      var question = "<td>"+data.question+"</td>"
+      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('submitanswer',{'id':'"+data.id+"','answer':'document.getElementById('input"+data.id+"').value''})\" class=\"btn btn-warning\">JOIN</button></td>"
+      var input = "<td><input id=\"input"+data.id+"\" type=\"text\" name=\"answer\"></td>"
+      var html = "<tr>"+id+question+buttons+input+"</tr>"
+      div.innerHTML = div.innerHTML + html;
+*/
+       var socket = io.connect('http://161.53.120.82:3000');
       
-    
-    socket.on('submitanswerResponse', function (data) {
+        socket.emit('register', '56456');
+        socket.on('submitanswerResponse', function (data) {
        	console.log(data);   
       });
+
+socket.on('leaveGameResponse', function () {
+        window.location.href = "file:///C:/Users/Kompiuteris/Documents/RSC2016-EvilGeniuses/Web/joinQuizzes.php";
+      });
+
+socket.on('gameResult', function (data) {
+   var myNode = document.getElementById("bigtext");
+    myNode.innerHTML = data;
+  });
+
+socket.on('startGameResponse', function(){
+    var myNode = document.getElementById("bigtext");
+    myNode.innerHTML = "Started";
+});
+
+socket.on('newQuestion', function (data) {
+    console.log(data);
+    var div = document.getElementById("questions");
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
+
+    var id = "<td>"+data.id+"</td>"
+      var question = "<td>"+data.question+"</td>"
+      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('submitanswer',{'id':'"+data.id+"','answer':document.getElementById('input"+data.id+"').value})\" class=\"btn btn-warning\">JOIN</button></td>"
+      var input = "<input id=\"input"+data.id+"\" type=\"text\" name=\"answer\">"
+      var html = "<tr>"+id+question+buttons+input+"</tr>"
+      div.innerHTML = div.innerHTML + html;
+  });
+
     </script>
 
 </body>
