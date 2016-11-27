@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        exUrls[level] = "http://rsc.hr/";
+        exUrls[level] = "http://quisar.com/";
         if(!isNetworkAvailable(this)) {
             System.out.println("No connection");
             Toast.makeText(this, "Connection", Toast.LENGTH_SHORT).show();
