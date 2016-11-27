@@ -77,24 +77,23 @@
 	<div class="row">
 
     	<div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="col-item">
+            <div class="col-item" \>
                 <div class="post-img-content">
-                    <img src="http://placehold.it/350x260" class="img-responsive" />
-                    <span class="round-tag">-15%</span>
+                <div style=" margin:auto">
+                    <img src="img/coin.png" style="max-height:100%; max-width:auto; margin-left:11%" class="img-responsive" />
+                </div>
                 </div>
                 <div class="info">
                     <div class="row">
                         <div class="price col-md-6">
-                            <h5> Sample Product</h5>
-                            <h5 class="price-text-color">19.99€</h5>
+                            <h5><b> 5 euros</b></h5>
+                            <h5 class="price-text-color">100qp</h5>
                         </div>
-                        <div class="rating hidden-sm col-md-6">
-                            <h5 class="price-text-color">14.99€</h5>
-                        </div>
+                      
                     </div>
                     <div class="separator clear-left">
                         <p class="btn-add">
-                            <i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Add to cart</a></p>
+                            <i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Paypal</a></p>
                         <p class="btn-details">
                             <i class="fa fa-list"></i><a href="#" class="hidden-sm">More details</a></p>
                     </div>
@@ -107,27 +106,49 @@
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="col-item">
                 <div class="post-img-content">
-                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                    
-                  
+                <div style="">
+                    <img src="img/coins.png" style="max-height:100%; max-width:auto; margin-left:11%" class="img-responsive" />
+                </div>
                 </div>
                 <div class="info">
                     <div class="row">
                         <div class="price col-md-6">
-                            <h5> Sample Product</h5>
-                            <h5 class="price-text-color">$199.99</h5>
+                            <h5><b> 10 euros</b></h5>
+                            <h5 class="price-text-color">195qp</h5>
                         </div>
-                        <div class="rating hidden-sm col-md-6">
-                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                            </i><i class="fa fa-star"></i>
-                        </div>
+                      
                     </div>
                     <div class="separator clear-left">
                         <p class="btn-add">
-                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
+                            <i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Paypal</a></p>
                         <p class="btn-details">
-                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
+                            <i class="fa fa-list"></i><a href="#" class="hidden-sm">More details</a></p>
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="col-item" >
+                <div class="post-img-content">
+                <div style=" margin:auto">
+                    <img src="img/notes.png" style="max-height:100%; max-width:auto; margin-left:11%" class="img-responsive" />
+                </div>
+                </div>
+                <div class="info">
+                    <div class="row">
+                        <div class="price col-md-6">
+                            <h5><b> 20 euros</b></h5>
+                            <h5 class="price-text-color">360qp</h5>
+                        </div>
+                      
+                    </div>
+                    <div class="separator clear-left">
+                        <p class="btn-add">
+                            <i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Paypal</a></p>
+                        <p class="btn-details">
+                            <i class="fa fa-list"></i><a href="#" class="hidden-sm">More details</a></p>
                     </div>
                     <div class="clearfix">
                     </div>
@@ -136,54 +157,24 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="col-item">
-                <div class="photo">
-                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                <div class="post-img-content">
+                <div style=" margin:auto">
+                    <img src="img/money-bag.png" style="max-height:100%; max-width:auto; margin-left:11%" class="img-responsive" />
+                </div>
                 </div>
                 <div class="info">
                     <div class="row">
                         <div class="price col-md-6">
-                            <h5> Sample Product</h5>
-                            <h5 class="price-text-color">$199.99</h5>
+                            <h5><b> 50 euros</b></h5>
+                            <h5 class="price-text-color">700qp</h5>
                         </div>
-                        <div class="rating hidden-sm col-md-6">
-                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                            </i><i class="fa fa-star"></i>
-                        </div>
+                      
                     </div>
                     <div class="separator clear-left">
                         <p class="btn-add">
-                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
+                            <i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Paypal</a></p>
                         <p class="btn-details">
-                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                    </div>
-                    <div class="clearfix">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="col-item">
-                <div class="photo">
-                    <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                </div>
-                <div class="info">
-                    <div class="row">
-                        <div class="price col-md-6">
-                            <h5> Sample Product</h5>
-                            <h5 class="price-text-color">$199.99</h5>
-                        </div>
-                        <div class="rating hidden-sm col-md-6">
-                            <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                            </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                            </i><i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="separator clear-left">
-                        <p class="btn-add">
-                            <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                        <p class="btn-details">
-                            <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
+                            <i class="fa fa-list"></i><a href="#" class="hidden-sm">More details</a></p>
                     </div>
                     <div class="clearfix">
                     </div>
