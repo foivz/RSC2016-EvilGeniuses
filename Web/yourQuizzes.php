@@ -121,7 +121,7 @@
   });
     socket.on('startGameResponse', function (data){
         console.log("game started");
-        
+        window.location.href = "moderatorPage.php";
     });
 
    	socket.on('gameListResponse', function(data){
