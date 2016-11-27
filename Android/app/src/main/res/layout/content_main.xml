@@ -10,9 +10,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.laurynas.quisar.MainActivity"
+    tools:context="com.laurynas.laurynas.quisar.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:background="#1c2d3f">
+    android:background="#61E9B1">
 
     <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/webview"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.laurynas.quisar">
+    package="com.laurynas.laurynas.quisar">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,7 +8,7 @@
 
     <application android:allowBackup="true" android:icon="@drawable/logo"
         android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:label="@string/app_name"
+        <activity android:name="com.laurynas.laurynas.quisar.MainActivity" android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,12 +17,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MyFirebaseInstaceIdService">
+        <service android:name="com.laurynas.laurynas.quisar.MyFirebaseInstaceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name="com.laurynas.laurynas.quisar.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
