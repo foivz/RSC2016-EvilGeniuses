@@ -8,14 +8,10 @@
 
 </head>
 
-<body>
-	<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
-	<script>
+<body style="background-color:#61E9B1;">
+<back>
+
+<script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '999832093495523',
@@ -32,23 +28,25 @@
                          }(document, 'script', 'facebook-jssdk'));
                      </script>
                      <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>               
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
 </script>
   <div class="wrapper">
-	<div class="container">
+	<div class="container1">
 		<h1>Welcome</h1>
 		
 		<form class="form">
 			<input type="text" placeholder="Username">
 			<input type="password" placeholder="Password">
+<<<<<<< HEAD
+			<button type="submit" id="login-button">Login</button>
+            <div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+=======
 			<button onclick="window.location.href='http://161.53.120.82/joinQuizzes.php'" type="submit" id="login-button">Login</button>
+>>>>>>> origin/master
 		</form>
 	</div>
 	
