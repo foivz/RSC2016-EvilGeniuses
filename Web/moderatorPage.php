@@ -130,7 +130,7 @@
     <script src="socket.js"></script>
 <script>
   var socket = io.connect('http://161.53.120.82:3000');
-   socket.emit('register', '56456');
+   socket.emit('register', '2');
    
    socket.emit('requestAllQuestions');
   

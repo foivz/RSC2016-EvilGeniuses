@@ -76,17 +76,26 @@
                   <h2>Quizzes near you</h2> 
                   
                   <p></p>            
-                  <table  class="table table-striped table-bordered">
+                  <table class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Name</th>
+                        <th>Description</th>
+                        <th>Venue</th>
+                        <th>Email</th>
                         <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody id="games">
-                      
+                      <tr>
+                        <td>Quiz 1</td>
+                        <td>A quiz about quizzes</td>
+                        <td>Baker st. 55, London</td>
+                        <td>john@example.com</td>
+                        <td><a href="questions.php?name=Quiz1" type="button" onclick="socket.emit('startgame')" class="btn btn-warning">START</a> <a href="questions.php?name=Quiz1" class="btn btn-info">QUESTIONS</a></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -106,9 +115,9 @@
     <script src="socket.js"></script>
 <script>
   var socket = io.connect('http://161.53.120.82:3000');
-  socket.emit('register', '56456');
+  socket.emit('register', '1');
    socket.on('registrationResponse', function (data) {
-    alert("Registration " + data["status"]);
+
 
   });
 
@@ -174,17 +183,17 @@ socket.on('removeQuestion', function (data) {
    		var game = data[i];
    		 console.log(game);
 
+      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('joinGame','"+game.id+"')\" class=\"btn btn-warning\">JOIN</button></td>"
       var id = "<td>"+game.id+"</td>"
       var name = "<td>"+game.name+"</td>"
+      var descr ="<td>"+game.description+"</td>"
+      var venue = "<td>"+game.venue+"</td>"
+      var contact = "<td>"+game.contact+"</td>"
       var status = "<td>"+game.status+"</td>"
-      var buttons = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('joinGame','"+game.id+"')\" class=\"btn btn-warning\">JOIN</button></td>"
-      var html = "<tr>"+id+name+status+buttons+"</tr>"
-
-
-
+     
+      var html = "<tr>"+id+name+descr+venue+contact+status+buttons+"</tr>"
 
    		div.innerHTML = div.innerHTML + html;
-    	//document.getElementById("games").appendChild(node);
    	}
    });
 

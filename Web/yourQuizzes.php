@@ -115,7 +115,7 @@
     <script src="socket.js"></script>
 <script>
   var socket = io.connect('http://161.53.120.82:3000');
-    socket.emit('register', '56456');
+    socket.emit('register', '2');
    socket.on('registrationResponse', function (data) {
          console.log("connected");
   });
@@ -141,9 +141,11 @@
       var venue = "<td>"+game.venue+"</td>"
       var contact = "<td>"+game.contact+"</td>"
       var status = "<td>"+game.status+"</td>"
-      var button = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('startgame')\" class=\"btn btn-success\">Start Quiz</button>"
-      var butt = "<button type=\"button\" class=\"btn btn-info\" onclick=\"socket.emit('moderateGame','"+game.id+"')\">Moderate game</button></td>";
-      var html = "<tr>"+id+name+descr+venue+contact+status+button+butt+"</tr>"
+      var button = "<td><button  type=\"button\" id=\"joinbutton\" onclick=\"socket.emit('startgame')\" class=\"btn btn-success\">Start Quiz</button> "
+      var butt = "<button type=\"button\" class=\"btn btn-info\" onclick=\"socket.emit('moderateGame','"+game.id+"')\">Moderate game</button> "
+      var butty = "<a href=\"questions.php\" type=\"button\" class=\"btn btn-warning\" >Questions</a></td>";
+      
+      var html = "<tr>"+id+name+descr+venue+contact+status+button+butt+butty+"</tr>"
 
    		div.innerHTML = div.innerHTML + html;
    	}
