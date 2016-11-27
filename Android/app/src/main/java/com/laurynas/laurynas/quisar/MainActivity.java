@@ -1,4 +1,4 @@
-package com.example.laurynas.quisar;
+package com.laurynas.laurynas.quisar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadOnWebView(String url){
-        makeToast("Loading " + url);
+        //makeToast("Loading " + url);
         myWebView.loadUrl(url);
         myWebView.setVisibility(View.GONE);
         Button button = (Button)findViewById(R.id.button);
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            findViewById(R.id.rLayout).setBackgroundColor(Color.parseColor("#1c2d3f"));
+            findViewById(R.id.rLayout).setBackgroundColor(Color.parseColor("#61E9B1"));
             findViewById(R.id.webview).setVisibility(View.VISIBLE);
             findViewById(R.id.button).setVisibility(View.VISIBLE);
             findViewById(R.id.progressBar).setVisibility(View.GONE);

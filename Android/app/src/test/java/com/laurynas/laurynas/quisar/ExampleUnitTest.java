@@ -1,4 +1,4 @@
-package com.example.laurynas.quisar;
+package com.laurynas.laurynas.quisar;
 
 import org.junit.Test;
 
