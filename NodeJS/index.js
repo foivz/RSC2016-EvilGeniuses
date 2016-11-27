@@ -20,7 +20,7 @@ var newGame = {
 		"name":"QuTest",
 		"moderators":[],
 		"users": [],
-		"status":"ended",
+		"status":"setup",
 		"description":"The best quiz about your fav. actor",
 		"venue":"Mexicana",
 		"contact":"antonio.banderas@gmail.com",
@@ -226,9 +226,9 @@ function leaveGame(client)
 	}
 
 	user.game = null;
-	connection.query('UPDATE users SET game ="" WHERE id='+ user.id +'', function(err, rows, fields)   {});
+	connection.query('UPDATE users SET game ="" WHERE id='+ user.id +'', function(err, rows, fields)   {client.emit('leaveGameResponse');});
 
-	client.emit('leaveGameResponse');
+	
 
 }
 
@@ -466,8 +466,9 @@ console.log(data)
 		{
 			user.points += question.points;
 			user.client.emit('pointsUpdate',user.points);
+			user.client.emit('submitanswerResponse', 'Correct answer')
 			user.answeredQuestions.push(question);
-			connection.query('UPDATE users SET points = '+user.points + ' WHERE id='+ user.id +'', function(err, rows, fields)   {});
+			connection.query('UPDATE users SET points = "'+user.points + '" WHERE id='+ user.id +'', function(err, rows, fields)   {});
  
 
 

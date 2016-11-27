@@ -101,7 +101,7 @@
 */
        var socket = io.connect('http://161.53.120.82:3000');
       
-        socket.emit('register', '56456');
+        socket.emit('register', '2');
         socket.on('submitanswerResponse', function (data) {
        	console.log(data);   
       });
