@@ -115,7 +115,7 @@
     <script src="socket.js"></script>
 <script>
   var socket = io.connect('http://161.53.120.82:3000');
-  socket.emit('register', '1');
+  socket.emit('register', '2');
    socket.on('registrationResponse', function (data) {
 
 
